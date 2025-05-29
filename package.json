@@ -1,0 +1,15 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for the streamflow system to expose microservices functionalities",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/Broukt/api-gateway"
+  },
+  "author": "Jairo Calcina y Luis Ardiles",
+  "license": "ISC"
+}
