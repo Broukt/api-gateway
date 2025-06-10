@@ -64,4 +64,4 @@ volumes:
 
 networks:
   auth-net:
-    driver: bridgecd
+    driver: bridge
