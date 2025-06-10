@@ -11,4 +11,4 @@ const authServiceClient = axios.create({
   },
 });
 
-export default authServiceClient;
+module.exports = authServiceClient;
