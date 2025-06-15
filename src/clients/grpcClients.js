@@ -16,12 +16,6 @@ const loadClients = (app) => {
     process.env.PLAYLISTS_SERVICE_URL,
     credentials.createInsecure()
   );
-
-  const emailsProto = loadProto("emails");
-  app.locals.emailsClient = new emailsProto.EmailService(
-    process.env.EMAILS_SERVICE_URL,
-    credentials.createInsecure()
-  );
 };
 
 module.exports = loadClients;
