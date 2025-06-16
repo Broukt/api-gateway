@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package playlists;
+
+import "google/protobuf/empty.proto";
+
+service Playlists {
+    rpc CreatePlaylist(CreatePlaylistRequest) returns (PlaylistResponse);
+    rpc AddVideoToPlaylist(AddVideoToPlaylistRequest) returns (google.protobuf.Empty);
+    rpc RemoveVideoFromPlaylist(RemoveVideoFromPlaylistRequest) returns (google.protobuf.Empty);
+    rpc GetPlaylists(google.protobuf.Empty) returns (GetPlaylistsResponse);
+    rpc GetPlaylistVideos(GetPlaylistVideosRequest) returns (GetPlaylistVideosResponse);
+    rpc DeletePlaylist(DeletePlaylistRequest) returns (google.protobuf.Empty);
+}
+
+message Playlist {
+    string id = 1;
+    string name = 2;
+}
+
+message PlaylistResponse {
+    Playlist playlist = 1;
+}
+
+message CreatePlaylistRequest {
+    string name = 1;
+}
+
+message AddVideoToPlaylistRequest {
+    string playlist_id = 1;
+    string video_id = 2;
+}
+
+message RemoveVideoFromPlaylistRequest {
+    string playlist_id = 1;
+    string video_id = 2;
+}
+
+
+message GetPlaylistsResponse {
+    repeated Playlist playlists = 1;
+}
+
+message GetPlaylistVideosRequest {
+    string playlist_id = 1;
+}
+
+message GetPlaylistVideosResponse {
+    string playlist_id = 1;
+    repeated string video_ids = 2; // List of video IDs in the playlist
+    repeated string video_titles = 3; // List of video titles in the playlist
+}
+
+message DeletePlaylistRequest {
+    string playlist_id = 1;
+}
