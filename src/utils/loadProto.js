@@ -14,4 +14,4 @@ function loadProto(name) {
   );
   return loadPackageDefinition(def)[name];
 }
-module.exports = loadProto;
+module.exports = { loadProto };
