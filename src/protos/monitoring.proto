@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package monitoring;
+
+message Action {
+  string id = 1;
+  string userId = 2;
+  string URLMethod = 3;
+  string userEmail = 4;
+  string actionDate = 5;
+  string action = 6;
+}
+
+message Error {
+  string id = 1;
+  string userId = 2;
+  string userEmail = 3;
+  string errorDate = 4;
+  string error = 5;
+}
+
+message CreateActionRequest {
+  string userId = 1;
+  string URLMethod = 2;
+  string userEmail = 3;
+  string actionDate = 4;
+  string action = 5;
+}
+
+message CreateActionResponse {
+  int32 status = 1;
+  Action action = 2;
+}
+
+message CreateErrorRequest {
+  string userId = 1;
+  string userEmail = 2;
+  string errorDate = 3;
+  string error = 4;
+}
+
+message CreateErrorResponse {
+  int32 status = 1;
+  Error error = 2;
+}
+
+message ListActionsResponse {
+  int32 status = 1;
+  repeated Action actions = 2;
+}
+message ListErrorsResponse {
+  int32 status = 1;
+  repeated Error errors = 2;
+}
+
+message ListActionsRequest { string requestorRole = 1; }
+message ListErrorsRequest { string requestorRole = 1; }
+
+service Monitoring {
+  rpc CreateAction(CreateActionRequest) returns (CreateActionResponse);
+  rpc CreateError(CreateErrorRequest) returns (CreateErrorResponse);
+  rpc ListActions(ListActionsRequest) returns (ListActionsResponse);
+  rpc ListErrors(ListErrorsRequest) returns (ListErrorsResponse);
+}
