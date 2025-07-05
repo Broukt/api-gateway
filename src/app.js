@@ -5,8 +5,14 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const compression = require("compression");
 const loadClients = require("./clients/grpcClients");
-const authRouter = require("./routes/authRoutes");
 const usersRouter = require("./routes/usersRoutes");
+const authRouter = require("./routes/authRoutes");
+const billingRouter = require("./routes/billingRoutes");
+const videosRouter = require("./routes/videosRoutes");
+const monitoringRouter = require("./routes/monitoringRoutes");
+const playlistsRouter = require("./routes/playlistsRoutes");
+const socialInteractionsRouter = require("./routes/socialInteractionsRoutes");
+const globalErrorMiddleware = require("./middlewares/globalErrorMiddleware");
 
 dotenv.config();
 
@@ -26,7 +32,14 @@ app.get("/", (req, res) => {
 
 loadClients(app);
 
-app.use("/auth", authRouter);
 app.use("/usuarios", usersRouter);
+app.use("/auth", authRouter);
+app.use("/facturas", billingRouter);
+app.use("/videos", videosRouter);
+app.use("/monitoreo", monitoringRouter);
+app.use("/listas-reproduccion", playlistsRouter);
+app.use("/interacciones", socialInteractionsRouter);
+
+app.use(globalErrorMiddleware);
 
 module.exports = app;
