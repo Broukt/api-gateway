@@ -14,6 +14,34 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  billing:
+    image: mariadb:latest
+    container_name: billing-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3310:3306"
+  videos:
+    image: mongo:latest
+    container_name: videos-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27018:27017"
+  monitoring:
+    image: mongo:latest
+    container_name: monitoring-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27019:27017"
   playlists:
     image: postgres:latest
     container_name: playlists-db
@@ -29,7 +57,34 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  social_interactions:
+    image: mongo:latest
+    container_name: social-interactions-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27020:27017"
+  phpmyadmin-users:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-users-db
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8085:80"
 
+  phpmyadmin-billing:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-billing-db
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8086:80"
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -39,26 +94,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-
-  mariadb:
-    image: mariadb:latest
-    container_name: users-db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
-    ports:
-      - "3307:3306"
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin-users-db
-    environment:
-      PMA_HOST: mariadb
-      PMA_USER: root
-      PMA_PASSWORD: rootpassword
-    ports:
-      - "8080:80"
 
 networks:
   auth-net:
